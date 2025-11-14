@@ -63,8 +63,7 @@ ZSH_THEME="robbyrussell"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
+(( ${+ZSH_CUSTOM} )) || ZSH_CUSTOM="$HOME/.config/omz-custom"
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
@@ -75,10 +74,11 @@ plugins=(
 )
 
 ZSH_CONFIG_DIR="$HOME/.config/zsh"
-
-for file in "$ZSH_CONFIG_DIR"/*.zsh; do
-	[[ -f "$file" && -r "$file" ]] && source "$file"
-done
+if [[ -d "$ZSH_CONFIG_DIR" ]] then 
+	for file in $(ls "$ZSH_CONFIG_DIR"/*.zsh); do
+		[[ -f "$file" && -r "$file" ]] && source "$file"
+	done
+fi
 
 typeset -gaU plugins
 
