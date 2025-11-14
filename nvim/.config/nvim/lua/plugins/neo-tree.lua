@@ -5,6 +5,7 @@ return {
     dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", "MunifTanjim/nui.nvim" },
     keys = {
         { "<leader>fe", "<cmd>Neotree toggle<CR>", desc = "Explorer" },
+        { "<A-e>", "<cmd>Neotree toggle<CR>", desc = "Explorer" },
     },
     opts = {
         filesystem = {

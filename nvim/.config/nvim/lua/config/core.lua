@@ -1,3 +1,6 @@
+vim.g.mapleader        = " "
+vim.g.maplocalleader   = "/"
+
 vim.opt.number         = true -- 行号
 vim.opt.relativenumber = true -- 相对行号
 vim.opt.cursorline     = true -- 高亮光标行
@@ -15,11 +18,10 @@ vim.opt.ignorecase     = true
 vim.opt.smartcase      = true
 
 vim.opt.showbreak      = '~ '      -- 折行前缀提示符，可改成 ┊、> 等
+vim.opt.linebreak      = true
 vim.opt.breakindent    = true      -- 折行再缩进，视觉层次更好
 vim.opt.breakindentopt = 'shift:2' -- 缩进 2 列
 
-vim.g.mapleader        = " "
-vim.g.maplocalleader   = "/"
 vim.diagnostic.config({
     virtual_text = true,
     -- virtual_lines = true,

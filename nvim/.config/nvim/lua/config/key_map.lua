@@ -11,7 +11,7 @@ vim.keymap.set({ "n", "i" }, "<A-F>", function()
 end)
 
 vim.keymap.set('n', '<leader>uw', function()
-    vim.opt.wrap = not vim.opt.wrap
+    vim.opt.wrap = not vim.opt.wrap:get()
     vim.notify('wrap ' .. (vim.opt.wrap:get() and 'ON' or 'OFF'))
 end, { desc = 'Toggle wrap' })
 
@@ -39,12 +39,9 @@ vim.keymap.set('n', '<A-k>', function() resize(1, 'height') end, { silent = true
 vim.keymap.set('n', '<A-h>', function() resize(-1, 'width') end, { silent = true })
 vim.keymap.set('n', '<A-l>', function() resize(1, 'width') end, { silent = true })
 vim.keymap.set('n', '<A-=>', '<C-w>=', { silent = true })
+vim.keymap.set({'n','i'}, '<C-s>', '<Cmd>w<CR>', { silent = true })
+vim.keymap.set({"n","i"}, '<A-c>', '<Cmd>bd<CR>=', { silent = true })
 
 
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { silent = true })
-
-
-
-
-
 
