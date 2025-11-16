@@ -44,24 +44,27 @@ vim.opt.clipboard:prepend({ 'unnamed', 'unnamedplus' })
 ----------------------------------------------------------------------
 vim.opt.ignorecase  = true
 vim.opt.smartcase   = true
-vim.opt.hlsearch    = false    -- 你关了，可以保留
-vim.opt.incsearch   = true     -- 实时高亮匹配
+vim.opt.hlsearch    = false -- 你关了，可以保留
+vim.opt.incsearch   = true  -- 实时高亮匹配
 
 ----------------------------------------------------------------------
 -- 5. 窗口 / 分屏
 ----------------------------------------------------------------------
 vim.opt.splitright  = true
 vim.opt.splitbelow  = true
-vim.opt.equalalways = false    -- 不让 vim 自动拉平窗口
+vim.opt.equalalways = false -- 不让 vim 自动拉平窗口
 
 ----------------------------------------------------------------------
 -- 6. 命令栏与消息
 ----------------------------------------------------------------------
-vim.opt.showmode    = false    -- 你关了，配合 lualine 更干净
+vim.opt.showmode    = false -- 你关了，配合 lualine 更干净
 vim.opt.showcmd     = true
-vim.opt.cmdheight   = 0        -- 0 行命令栏（Neovim 0.8+）
-vim.opt.laststatus  = 3        -- 全局状态栏
+vim.opt.cmdheight   = 0     -- 0 行命令栏（Neovim 0.8+）
+vim.opt.laststatus  = 3     -- 全局状态栏
 vim.opt.shortmess:append({ I = true, c = true })
+
+
+vim.opt.spell = true            -- 英文拼写检查
 
 ----------------------------------------------------------------------
 -- 7. 内置 LSP 诊断样式（你已有，微调）
@@ -94,3 +97,22 @@ if vim.fn.has('wsl') == 1 then
         end,
     })
 end
+
+if vim.fn.has("win32") then
+    vim.o.shell = "pwsh.exe"
+end
+
+-- 退出时保存视图（含折叠）
+vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
+    pattern = { "*" },
+    callback = function()
+        vim.cmd("silent! mkview")
+    end,
+})
+-- 进入时加载视图
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+    pattern = { "*" },
+    callback = function()
+        vim.cmd("silent! loadview")
+    end,
+})
