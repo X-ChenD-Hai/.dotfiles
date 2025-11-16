@@ -10,7 +10,7 @@ config.allow_square_glyphs_to_overflow_width = "WhenFollowedBySpace"
 config.color_scheme = "Catppuccin Mocha"
 
 config.window_decorations = "TITLE | RESIZE"
-config.window_background_opacity = 0.5
+config.window_background_opacity = 0.6
 config.adjust_window_size_when_changing_font_size = false
 config.hide_tab_bar_if_only_one_tab = true
 config.use_fancy_tab_bar = false
@@ -142,7 +142,7 @@ local tab_keys = {
 }
 
 for i = 1, 9 do
-    tab_keys[#tab_keys+1] = { key = string.format('%d', i), mods = 'LEADER', action = wezterm.action.ActivateTab(i - 1), }
+    tab_keys[#tab_keys + 1] = { key = string.format('%d', i), mods = 'LEADER', action = wezterm.action.ActivateTab(i - 1), }
 end
 
 
@@ -159,6 +159,10 @@ config.keys = {
             one_shot = false,
         },
     },
+    --   { key = '/', action = wezterm.action.Search { CaseSensitiveString = "" }, },
+    --    { key = '[',         mods = 'LEADER',       action = wezterm.action.ActivateCopyMode, },
+    --    { key = 'UpArrow', mods = 'SHIFT|CTRL',                                         action = wezterm.action.ScrollToPrompt(-1) },
+    --   { key = 'DownArrow', mods = 'SHIFT|CTRL',   action = wezterm.action.ScrollToPrompt(1) },
 }
 local function insert_to(dst, src)
     for _, v in ipairs(src) do
@@ -189,8 +193,34 @@ local resize_pane = {
     { key = 'Escape',     action = 'PopKeyTable' },
     table.unpack(active_pane),
 }
+
+
+-- local copy_mode_additional_keys = {
+--     { key = 'z', mods = 'SHIFT', action = wezterm.action.CopyMode 'MoveBackwardSemanticZone' },
+--     { key = 'z', mods = 'NONE',  action = wezterm.action.CopyMode 'MoveForwardSemanticZone' },
+--     { key = '[', mods = 'CTRL',  action = wezterm.action.CopyMode 'Close' },
+--     { key = '/', mods = 'NONE',  action = wezterm.action.Search { CaseSensitiveString = "" }, },
+-- }
+--
+-- local copy_mode = wezterm.gui.default_key_tables().copy_mode
+-- for _, key in ipairs(copy_mode_additional_keys) do
+--     table.insert(copy_mode, key)
+-- end
+--
+-- local search_mode_additional_keys = {
+--     { key = '[', mods = 'CTRL', action = wezterm.action.CopyMode 'AcceptPattern' },
+-- }
+-- local search_mode = wezterm.gui.default_key_tables().search_mode
+-- for _, key in ipairs(search_mode_additional_keys) do
+--     table.insert(search_mode, key)
+-- end
+
+
 config.key_tables = {
+    -- copy_mode = copy_mode,
+    -- search_mode = search_mode,
     resize_pane = resize_pane,
 }
+
 
 return config

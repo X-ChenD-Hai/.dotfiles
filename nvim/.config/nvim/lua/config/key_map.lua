@@ -2,6 +2,7 @@ vim.keymap.set({ "n", "i" }, "<C-z>", "<Cmd>undo<CR>", { silent = true })
 
 -- 普通模式：Ctrl+?（实际为 <C-_>） 触发 gcc
 vim.keymap.set('n', '<C-_>', 'gcc', { remap = true, silent = true })
+vim.keymap.set('n', '<tab>', 'w', { remap = true, silent = true })
 vim.keymap.set('i', '<C-_>', '<Esc>gccgi', { remap = true, silent = true })
 -- 可视模式：也保持 gc
 vim.keymap.set('x', '<C-_>', 'gc', { remap = true, silent = true })
