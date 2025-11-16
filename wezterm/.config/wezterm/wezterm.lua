@@ -1,7 +1,34 @@
 local wezterm = require("wezterm")
-local config = wezterm.config_builder()
 
-config.default_prog = { "pwsh.exe" }
+local is_win  = wezterm.target_triple:find("windows") ~= nil
+local is_mac  = wezterm.target_triple:find("apple") ~= nil
+local is_lin  = wezterm.target_triple:find("linux") ~= nil
+
+local function find_exe(name)
+    -- 1. 挑对命令
+    local finder = wezterm.target_triple:find('windows') and { 'where.exe', name } or { 'which', name }
+    -- 2. 执行
+    local ok, stdout, stderr = wezterm.run_child_process(finder)
+    if not ok then
+        wezterm.log_error(string.format('find_exe(%s): %s', name, stderr))
+        return nil
+    end
+    -- 3. 取第一行（Windows 的 where 可能列出多项）
+    local path = stdout:gsub('%s+$', '') -- 去掉换行及后面可能的多余内容
+    return path ~= '' and path or nil
+end
+
+local config = wezterm.config_builder()
+local shell = nil
+
+if is_lin or is_mac then
+    shell = find_exe("zsh") or find_exe("bash") or find_exe("sh")
+elseif is_win then
+    shell = find_exe("pwsh") or find_exe("powershell") or find_exe("cmd")
+end
+
+
+config.default_prog = { shell }
 
 config.font_size = 20
 config.font = wezterm.font("CaskaydiaMono Nerd Font", {})
@@ -9,12 +36,14 @@ config.allow_square_glyphs_to_overflow_width = "WhenFollowedBySpace"
 
 config.color_scheme = "Catppuccin Mocha"
 
+-- config.window_decorations = "RESIZE|TITLE"
 config.window_decorations = "TITLE | RESIZE"
 config.window_background_opacity = 0.6
 config.adjust_window_size_when_changing_font_size = false
-config.hide_tab_bar_if_only_one_tab = true
-config.use_fancy_tab_bar = false
-
+config.hide_tab_bar_if_only_one_tab = false
+config.use_fancy_tab_bar = true
+config.tab_bar_at_bottom = false
+-- :config.win32_system_backdrop = 'Acrylic'
 config.default_cursor_style = 'BlinkingBlock'
 
 config.window_background_gradient = {
@@ -67,8 +96,13 @@ config.window_background_gradient = {
     -- segment_size = 11,
     -- segment_smoothness = 0.0,
 }
-
-
+-- config.colors = {
+--     tab_bar = {
+--         background   = '#00000000', -- 完全透明
+--         active_tab   = { bg_color = '#00000066' },
+--         inactive_tab = { bg_color = '#00000044' },
+--     }
+-- }
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
     local bg = tab.is_active and "#2b2042" or "#1b1032"
     local fg = "#ffffff"
@@ -159,6 +193,7 @@ config.keys = {
             one_shot = false,
         },
     },
+    { key = "d", mods = "CTRL", action = act.SendString 'exit\r' },
     --   { key = '/', action = wezterm.action.Search { CaseSensitiveString = "" }, },
     --    { key = '[',         mods = 'LEADER',       action = wezterm.action.ActivateCopyMode, },
     --    { key = 'UpArrow', mods = 'SHIFT|CTRL',                                         action = wezterm.action.ScrollToPrompt(-1) },
