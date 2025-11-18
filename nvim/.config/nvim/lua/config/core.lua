@@ -64,7 +64,7 @@ vim.opt.laststatus  = 3     -- 全局状态栏
 vim.opt.shortmess:append({ I = true, c = true })
 
 
-vim.opt.spell = true            -- 英文拼写检查
+vim.opt.spell = true -- 英文拼写检查
 
 ----------------------------------------------------------------------
 -- 7. 内置 LSP 诊断样式（你已有，微调）
@@ -98,8 +98,39 @@ if vim.fn.has('wsl') == 1 then
     })
 end
 
-if vim.fn.has("win32") then
-    vim.o.shell = "pwsh.exe"
+-- if vim.fn.has("win32") then
+-- vim.o.shell = "pwsh.exe -Login"
+-- end
+local function first_exists(list)
+    for _, name in ipairs(list) do
+        local full = vim.fn.exepath(name)
+        if full ~= "" then
+            return full -- 返回绝对路径
+        end
+    end
+    return nil
+end
+
+-- 2. 按你的优先级列表
+local candidates = vim.fn.has("win32") == 1
+    and { "pwsh", "powershell", "cmd" } -- Windows
+    or { "zsh", "bash" }                -- Linux / macOS
+
+local shell = first_exists(candidates)
+
+-- 3. 找到就设；找不到就保持默认
+if shell then
+    vim.o.shell = (shell:match("%s") and '"%s"' or '%s'):format(shell)
+    -- 可选：把 shell 标志也一起设好，Neovim 才能正确跑 ! 、:make 、term 等
+    if shell:match("pwsh") or shell:match("powershell") then
+        vim.o.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command"
+        vim.o.shellquote   = ""
+        vim.o.shellxquote  = ""
+    elseif shell:match("bash") or shell:match("zsh") then
+        vim.o.shellcmdflag = "-c"
+        vim.o.shellquote   = ""
+        vim.o.shellxquote  = ""
+    end
 end
 
 -- 退出时保存视图（含折叠）
