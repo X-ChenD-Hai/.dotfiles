@@ -9,7 +9,7 @@ vim.g.maplocalleader   = '/'
 ----------------------------------------------------------------------
 vim.opt.number         = true
 vim.opt.relativenumber = true
-vim.opt.cursorline     = true
+vim.opt.cursorline     = false
 vim.opt.colorcolumn    = '80' -- 超长提醒
 vim.opt.scrolloff      = 5    -- 上下始终留 5 行
 vim.opt.sidescrolloff  = 5
@@ -63,6 +63,8 @@ vim.opt.cmdheight   = 0     -- 0 行命令栏（Neovim 0.8+）
 vim.opt.laststatus  = 3     -- 全局状态栏
 vim.opt.shortmess:append({ I = true, c = true })
 
+
+vim.o.exrc = true
 
 vim.opt.spell = true -- 英文拼写检查
 

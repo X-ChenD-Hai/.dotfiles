@@ -40,9 +40,12 @@ vim.keymap.set('n', '<A-k>', function() resize(1, 'height') end, { silent = true
 vim.keymap.set('n', '<A-h>', function() resize(-1, 'width') end, { silent = true })
 vim.keymap.set('n', '<A-l>', function() resize(1, 'width') end, { silent = true })
 vim.keymap.set('n', '<A-=>', '<C-w>=', { silent = true })
-vim.keymap.set({'n','i'}, '<C-s>', '<Cmd>w<CR>', { silent = true })
-vim.keymap.set({"n","i"}, '<A-c>', '<Cmd>bd<CR>=', { silent = true })
+vim.keymap.set({ 'n', 'i' }, '<C-s>', '<Cmd>w<CR>', { silent = true })
+vim.keymap.set({ "n", "i" }, '<A-c>', '<Cmd>bd<CR>=', { silent = true })
 
 
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { silent = true })
 
+vim.keymap.set({ "n", "i" }, "<F2>", function()
+    vim.lsp.buf.rename()
+end, { silent = true, desc = "rename" })
