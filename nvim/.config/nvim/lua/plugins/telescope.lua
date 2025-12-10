@@ -26,6 +26,9 @@ return {
         vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
     end,
     keys = {
-        { "<leader>sf", "<Cmd>Telescope find_files<CR>", desc = "search files", silent = true }
+        { "<leader>sf",        "<Cmd>Telescope find_files<CR>", desc = "search files", silent = true },
+        { "<leader><leader>f", "<Cmd>Telescope find_files<CR>", desc = "search files", silent = true },
+        { "<leader><leader>b", "<Cmd>Telescope buffers<CR>", desc = "search files", silent = true },
+        { "<leader><leader>s", "<Cmd>Telescope live_grep<CR>", desc = "search files", silent = true },
     }
 }

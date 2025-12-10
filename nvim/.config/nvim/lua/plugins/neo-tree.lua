@@ -5,8 +5,9 @@ return {
     dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", "MunifTanjim/nui.nvim" },
     keys = {
         { "<leader>fe", "<cmd>Neotree toggle<CR>", desc = "Explorer" },
-        { "<A-e>", "<cmd>Neotree toggle<CR>", desc = "Explorer" },
+        { "<A-e>",      "<cmd>Neotree toggle<CR>", desc = "Explorer" },
     },
+    lazy = false,
     opts = {
         filesystem = {
             filtered_items = {
@@ -15,6 +16,9 @@ return {
             },
             follow_current_file = { enabled = true }, -- 自动跟随当前文件
         },
-        window = { width = 35 },
+        window = {
+            width = 35,
+            position = "right",
+        },
     },
 }
