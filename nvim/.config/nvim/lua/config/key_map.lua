@@ -5,6 +5,9 @@ vim.keymap.set({ "n", "i" }, "<C-z>", "<Cmd>undo<CR>", { silent = true })
 vim.keymap.set('n', '<leader>qq', ':qa!<Cr>', { remap = true, silent = true })
 vim.keymap.set('n', '<leader>qx', ':xa!<Cr>', { remap = true, silent = true })
 
+-- 关闭buffer
+vim.keymap.set({ 'n', 'i', 'v', 't' }, '<A-w>', '<Cmd>bd<Cr>', { remap = true, silent = true })
+
 -- 注释: 普通模式：Ctrl+?（实际为 <C-_>） 触发 gcc
 vim.keymap.set('n', '<C-_>', 'gcc', { remap = true, silent = true })
 vim.keymap.set('i', '<C-_>', '<Esc>gccgi', { remap = true, silent = true })

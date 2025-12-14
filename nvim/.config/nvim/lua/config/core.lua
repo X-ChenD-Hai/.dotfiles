@@ -107,7 +107,7 @@ local function first_exists(list)
     for _, name in ipairs(list) do
         local full = vim.fn.exepath(name)
         if full ~= "" then
-            return full -- 返回绝对路径
+            return name -- 返回绝对路径
         end
     end
     return nil
@@ -122,7 +122,8 @@ local shell = first_exists(candidates)
 
 -- 3. 找到就设；找不到就保持默认
 if shell then
-    vim.o.shell = (shell:match("%s") and '"%s"' or '%s'):format(shell)
+    -- vim.o.shell = (shell:match("%s") and '"%s"' or '%s'):format(shell)
+    vim.o.shell = shell
     -- 可选：把 shell 标志也一起设好，Neovim 才能正确跑 ! 、:make 、term 等
     if shell:match("pwsh") or shell:match("powershell") then
         vim.o.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command"
@@ -134,7 +135,6 @@ if shell then
         vim.o.shellxquote  = ""
     end
 end
-
 -- 退出时保存视图（含折叠）
 vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
     pattern = { "*" },

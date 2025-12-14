@@ -1,1 +1,5 @@
- return { 'Civitasv/cmake-tools.nvim', opts = {} }
+return {
+    'Civitasv/cmake-tools.nvim',
+    opts = {},
+    event = "VeryLazy"
+}

@@ -2,6 +2,9 @@ return {
     {
         'akinsho/toggleterm.nvim',
         version = "*",
-        opts = {},
-    }
+        config = true,
+        keys = {
+            { mode = {"n",'i','v','t'}, "<A-t>", "<Cmd>ToggleTerm<Cr>", silent = true }
+        }
+    },
 }
