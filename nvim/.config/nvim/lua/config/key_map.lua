@@ -11,6 +11,9 @@ vim.keymap.set({ 'n', 'i', 'v', 't' }, '<A-w>', '<Cmd>bd<Cr>', { remap = true, s
 -- 注释: 普通模式：Ctrl+?（实际为 <C-_>） 触发 gcc
 vim.keymap.set('n', '<C-_>', 'gcc', { remap = true, silent = true })
 vim.keymap.set('i', '<C-_>', '<Esc>gccgi', { remap = true, silent = true })
+vim.keymap.set('n', '<C-/>', 'gcc', { remap = true, silent = true })
+vim.keymap.set('i', '<C-/>', '<Esc>gccgi', { remap = true, silent = true })
+
 
 -- 可视模式：也保持 gc
 vim.keymap.set('x', '<C-_>', 'gc', { remap = true, silent = true })
