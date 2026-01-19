@@ -63,6 +63,7 @@ vim.keymap.set('n', '<A-h>', function() resize(-1, 'width') end, { silent = true
 vim.keymap.set('n', '<A-l>', function() resize(1, 'width') end, { silent = true })
 vim.keymap.set('n', '<A-=>', '<C-w>=', { silent = true })
 
+
 -- 终端
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { silent = true })
 

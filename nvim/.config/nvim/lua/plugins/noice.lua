@@ -36,4 +36,9 @@ return {
         },
         messages = { enabled = false }, -- 可选：禁用底部消息
     },
+    keys = {
+
+        { '<leader>nc', ':Noice dismiss<Cr>', silent = true },
+        { '<A-c>',      ':Noice dismiss<Cr>', silent = true },
+    }
 }
