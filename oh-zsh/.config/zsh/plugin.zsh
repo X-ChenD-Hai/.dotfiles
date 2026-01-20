@@ -1,9 +1,16 @@
 (( ${+plugins} )) || plugins=()
 () {
+
+
+	if [[ -n "$(command -v fzf)" ]]; then 
+		plugins+=( 
+			fzf
+		)
+	fi
+
     plugins+=( 
 	    extract
         z
-        fzf
         sudo
     )
     add_plugin(){
