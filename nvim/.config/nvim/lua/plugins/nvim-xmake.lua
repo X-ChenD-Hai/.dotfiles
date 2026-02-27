@@ -1,7 +1,10 @@
 return {
-    "Mythos-404/xmake.nvim",
-    version = "^3",
-    lazy = true,
-    event = "BufReadPost",
-    config = true,
+--     {
+--     "Mythos-404/xmake.nvim",
+--     version = "^3",
+--     lazy = true,
+--     event = "BufReadPost",
+--     config = true,
+-- }
 }
+
